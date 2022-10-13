@@ -1,0 +1,29 @@
+#! /usr/bin/env php
+
+<?php
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+
+require 'vendor/autoload.php';
+
+
+$app = new Application('Laracasts Demo', '1.0');
+
+$app->register('sayHelloTo')
+    ->setDescription('Offer a greeting to the given person. This command needs one argument.')
+    ->addArgument('name', InputArgument::REQUIRED, 'Your name.') //::OPTIONAL
+    ->setCode(function(InputInterface $input, OutputInterface $output)
+    {
+        $name = $input->getArgument('name');
+        $output->writeln('<info>Hello World: ' . $name . '<info>');
+        $output->writeln('<comment>Hello World: ' . $name . '<comment>');
+        $output->writeln('<error>Hello World: ' . $name . '<error>');
+        $output->writeln('<question>Hello World: ' . $name . '<question>');
+        //$output->writeln("Hello World: {$name}");
+         
+    });
+
+$app->run();
